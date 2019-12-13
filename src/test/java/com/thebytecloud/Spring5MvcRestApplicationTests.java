@@ -1,4 +1,4 @@
-package com.thebytecloud.spring5mvcrest;
+package com.thebytecloud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
