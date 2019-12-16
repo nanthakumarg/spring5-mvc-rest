@@ -14,7 +14,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -59,6 +61,17 @@ class CategoryControllerTest {
     }
 
     @Test
-    void getCategoryByName() {
+    void getCategoryByName() throws Exception {
+
+        CategoryDTO category1 = new CategoryDTO();
+        category1.setId(1L);
+        category1.setName("Joe");
+
+        when(categoryService.getCategoryByName(anyString())).thenReturn(category1);
+
+        mockMvc.perform(get("/api/v1/categories//Joe")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", equalTo("Joe")));
     }
 }
