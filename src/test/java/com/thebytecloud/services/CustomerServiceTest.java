@@ -50,17 +50,17 @@ public class CustomerServiceTest {
         //given
         Customer customer = new Customer();
         customer.setId(1L);
-        customer.setFirstName("Joe");
-        customer.setLastName("John");
+        customer.setFirstname("Joe");
+        customer.setLastname("John");
 
-        when(customerRepository.findByFirstName(anyString())).thenReturn(customer);
+        when(customerRepository.findByFirstname(anyString())).thenReturn(customer);
 
         //when
-        CustomerDTO customerDTO = customerService.getCustomerByName(customer.getFirstName());
+        CustomerDTO customerDTO = customerService.getCustomerByName(customer.getFirstname());
 
         //then
         assertEquals(1L, customerDTO.getId());
-        assertEquals("Joe", customerDTO.getFirstName());
+        assertEquals("Joe", customerDTO.getFirstname());
 
     }
 
@@ -68,20 +68,20 @@ public class CustomerServiceTest {
     public void createNewCustomer() throws Exception {
 
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setFirstName("Joe");
-        customerDTO.setLastName("Kumar");
+        customerDTO.setFirstname("Joe");
+        customerDTO.setLastname("Kumar");
 
         Customer savedCustomer = new Customer();
-        savedCustomer.setFirstName(customerDTO.getFirstName());
-        savedCustomer.setLastName(customerDTO.getLastName());
+        savedCustomer.setFirstname(customerDTO.getFirstname());
+        savedCustomer.setLastname(customerDTO.getLastname());
         savedCustomer.setId(1L);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
 
         CustomerDTO savedDto = customerService.createNewCustomer(customerDTO);
 
-        assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
-        assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+        assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
+        assertEquals("/api/v1/customers/1", savedDto.getCustomer_url());
 
     }
 

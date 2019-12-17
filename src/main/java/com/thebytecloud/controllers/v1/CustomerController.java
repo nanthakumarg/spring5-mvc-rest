@@ -5,10 +5,7 @@ import com.thebytecloud.api.v1.model.CustomerListDTO;
 import com.thebytecloud.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers/")
@@ -27,14 +24,26 @@ public class CustomerController {
         );
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<CustomerDTO> getCustomerByName(@PathVariable String name) {
+//    @GetMapping("{name}")
+//    public ResponseEntity<CustomerDTO> getCustomerByName(@PathVariable String name) {
+//        return new ResponseEntity<CustomerDTO>(
+//                customerService.getCustomerByName(name),
+//                HttpStatus.OK
+//        );
+//    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id) {
         return new ResponseEntity<CustomerDTO>(
-                customerService.getCustomerByName(name),
+                customerService.getCustomerById(id),
                 HttpStatus.OK
         );
     }
 
-    //TODO: Implement create new customer
+    @PostMapping
+    public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO customerDTO) {
+        return new ResponseEntity<CustomerDTO>(customerService.createNewCustomer(customerDTO),
+                HttpStatus.CREATED);
+    }
 
 }
